@@ -1,19 +1,50 @@
-import _extends from 'babel-runtime/helpers/extends';
-import _Object$getPrototypeOf from 'babel-runtime/core-js/object/get-prototype-of';
-import _classCallCheck from 'babel-runtime/helpers/classCallCheck';
-import _createClass from 'babel-runtime/helpers/createClass';
-import _possibleConstructorReturn from 'babel-runtime/helpers/possibleConstructorReturn';
-import _inherits from 'babel-runtime/helpers/inherits';
-import React, { Component } from 'react';
-import Draft from 'draft-js';
+'use strict';
 
-var convertFromRaw = Draft.convertFromRaw,
-    convertToRaw = Draft.convertToRaw,
-    CompositeDecorator = Draft.CompositeDecorator,
-    Editor = Draft.Editor,
-    EditorState = Draft.EditorState,
-    Entity = Draft.Entity,
-    Modifier = Draft.Modifier;
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _draftJs = require('draft-js');
+
+var _draftJs2 = _interopRequireDefault(_draftJs);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var convertFromRaw = _draftJs2.default.convertFromRaw,
+    convertToRaw = _draftJs2.default.convertToRaw,
+    CompositeDecorator = _draftJs2.default.CompositeDecorator,
+    Editor = _draftJs2.default.Editor,
+    EditorState = _draftJs2.default.EditorState,
+    Entity = _draftJs2.default.Entity,
+    Modifier = _draftJs2.default.Modifier;
 
 
 var rawContent = {
@@ -40,12 +71,12 @@ var rawContent = {
 };
 
 var FormulaEditor = function (_Component) {
-    _inherits(FormulaEditor, _Component);
+    (0, _inherits3.default)(FormulaEditor, _Component);
 
     function FormulaEditor(props) {
-        _classCallCheck(this, FormulaEditor);
+        (0, _classCallCheck3.default)(this, FormulaEditor);
 
-        var _this = _possibleConstructorReturn(this, (FormulaEditor.__proto__ || _Object$getPrototypeOf(FormulaEditor)).call(this, props));
+        var _this = (0, _possibleConstructorReturn3.default)(this, (FormulaEditor.__proto__ || (0, _getPrototypeOf2.default)(FormulaEditor)).call(this, props));
 
         var contentState = convertFromRaw(rawContent);
 
@@ -81,18 +112,18 @@ var FormulaEditor = function (_Component) {
         return _this;
     }
 
-    _createClass(FormulaEditor, [{
+    (0, _createClass3.default)(FormulaEditor, [{
         key: 'render',
         value: function render() {
             var _this2 = this;
 
-            return React.createElement(
+            return _react2.default.createElement(
                 'div',
                 { style: styles.root },
-                React.createElement(
+                _react2.default.createElement(
                     'div',
                     { style: styles.editor, onClick: this.focus },
-                    React.createElement(Editor, {
+                    _react2.default.createElement(Editor, {
                         editorState: this.state.editorState,
                         onChange: this.onChange,
                         placeholder: 'Your formulae goes here...',
@@ -101,14 +132,14 @@ var FormulaEditor = function (_Component) {
                         }
                     })
                 ),
-                React.createElement('input', {
+                _react2.default.createElement('input', {
                     onClick: this.logState,
                     style: styles.button,
                     type: 'button',
                     value: 'Log State'
                 }),
-                React.createElement('input', { type: 'text', onChange: this.setName }),
-                React.createElement(
+                _react2.default.createElement('input', { type: 'text', onChange: this.setName }),
+                _react2.default.createElement(
                     'button',
                     { onClick: this.addEntity },
                     'Add Tag with "Mark"'
@@ -116,11 +147,10 @@ var FormulaEditor = function (_Component) {
             );
         }
     }]);
-
     return FormulaEditor;
-}(Component);
+}(_react.Component);
 
-export default FormulaEditor;
+exports.default = FormulaEditor;
 
 
 function getEntityStrategy(mutability) {
@@ -152,9 +182,9 @@ var TokenSpan = function TokenSpan(props) {
     console.log(Entity.get(props.entityKey));
 
     var style = getDecoratedStyle(Entity.get(props.entityKey).getMutability());
-    return React.createElement(
+    return _react2.default.createElement(
         'span',
-        _extends({}, props, { style: style }),
+        (0, _extends3.default)({}, props, { style: style }),
         props.children
     );
 };
