@@ -1,11 +1,21 @@
-import _Object$assign from 'babel-runtime/core-js/object/assign';
-import { curry } from 'lodash/fp';
-import { compose } from 'lodash/fp';
-import { map } from 'lodash/fp';
-import { sortBy } from 'lodash/fp';
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _assign = require('babel-runtime/core-js/object/assign');
+
+var _assign2 = _interopRequireDefault(_assign);
+
+exports.formulaParser = formulaParser;
+
+var _fp = require('lodash/fp');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // parseFormula :: regexp -> formula -> [object]
-var parseFormula = curry(function (regexp, formula) {
+var parseFormula = (0, _fp.curry)(function (regexp, formula) {
     var matches = [];
     var match = void 0;
 
@@ -23,7 +33,7 @@ var extractOperators = parseFormula(/([+\-/\*]|\[days\])/g);
 // extractBrackets :: string -> [object]
 var extractBrackets = parseFormula(/([\(\)])/g);
 // createFormulaPartObject :: string -> object -> object
-var createFormulaPartObject = curry(function (entityType, match) {
+var createFormulaPartObject = (0, _fp.curry)(function (entityType, match) {
     return {
         entityType: entityType,
         value: match[1],
@@ -43,17 +53,17 @@ function getCharForIndex(index) {
 
 var addVariableNames = function addVariableNames(parts) {
     return parts.map(function (part, index) {
-        return _Object$assign({}, part, { displaySubstitute: getCharForIndex(index) });
+        return (0, _assign2.default)({}, part, { displaySubstitute: getCharForIndex(index) });
     });
 };
 
 var extractFormulaParts = function extractFormulaParts(formula) {
-    return [].concat(compose(addVariableNames, map(createFormulaPartObject('dataElement')), extractDataElements)(formula), compose(map(createFormulaPartObject('operator')), extractOperators)(formula), compose(map(createFormulaPartObject('bracket')), extractBrackets)(formula));
+    return [].concat((0, _fp.compose)(addVariableNames, (0, _fp.map)(createFormulaPartObject('dataElement')), extractDataElements)(formula), (0, _fp.compose)((0, _fp.map)(createFormulaPartObject('operator')), extractOperators)(formula), (0, _fp.compose)((0, _fp.map)(createFormulaPartObject('bracket')), extractBrackets)(formula));
 };
 
-var getOrderedFormulaParts = compose(sortBy('index'), extractFormulaParts);
+var getOrderedFormulaParts = (0, _fp.compose)((0, _fp.sortBy)('index'), extractFormulaParts);
 
-export function formulaParser(formula) {
+function formulaParser(formula) {
     if (!formula) {
         return [];
     }
